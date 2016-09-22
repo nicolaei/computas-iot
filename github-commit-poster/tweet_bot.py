@@ -12,4 +12,17 @@ auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 # UPDATE STATUS
-api.update_status("Doot doot")
+#api.update_status("Doot doot")
+
+
+# Search for hashtag
+search_text = '#iot_uio'
+# Num of tweets to show
+search_number = 2
+search_result = api.search(search_text)#, rpp=search_number)
+
+if len(search_result) > 0:
+    for i in search_result:
+        print(i.text)
+else:
+    print("No tweets for hashtag", search_text)
