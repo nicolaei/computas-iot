@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     switch = Switch("admin", "WelcometoCX01", "10.0.1.11", "6-0-37")
 
-    newest_time = datetime.now()
+    newest_time = datetime(2016, 9, 21)
     tweeto = Tweeto()
 
     while True:
