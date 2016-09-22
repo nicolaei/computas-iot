@@ -1,11 +1,17 @@
-import tweepy
+import tweepy, configparser
 
-def find_hashtag(hashtag='#iot_uio', tid):
-    # SETUP, only works with the twitter account gruvebarn
-    CONSUMER_KEY = 'GwfNRjFAc98ALxBU55X7RL9jp'
-    CONSUMER_SECRET = '058qFhSL87dsShwE5OgnCSRCmimuZrIOKPWmAFB3XGQNcI2Oer'
-    ACCESS_KEY = '778979158684790784-7x6Hk296CEpA4vN3f3iD0sye8a26C1z'
-    ACCESS_SECRET = '1eIWU8fsmiJ1GeJNxakMhMZkHN8VcAQR8qhUYsw112Iuf'
+def find_hashtag(hashtag='#iot_uio', tid='0'):
+    # SETUP, see auth property file
+    config = configparser.ConfigParser()
+    config.read('auth')
+    config_twit = config['twitter']
+    
+    CONSUMER_KEY = config_twit['CONSUMER_KEY']
+    CONSUMER_SECRET = config_twit['CONSUMER_SECRET']
+    ACCESS_KEY = config_twit['ACCESS_KEY']
+    ACCESS_SECRET = config_twit['ACCESS_SECRET']
+    
+    # Authentication, see tweepy docs
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
@@ -13,7 +19,8 @@ def find_hashtag(hashtag='#iot_uio', tid):
     # Search for hashtag
     search_text = hashtag
     search_result = api.search(search_text)
-    
+
+    # Return hashtag newer than in arg tid
     for i in search_result:
         if i.created_at > tid:
             return True
