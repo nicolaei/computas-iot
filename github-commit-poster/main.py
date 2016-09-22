@@ -12,17 +12,18 @@ if __name__ == "__main__":
     tweeto = Tweeto()
 
     while True:
+        time.sleep(5)
         try:
-            tweet_time = tweeto.find_new_hashtag(hashtag='#iot_uio', tid=newest_time)
+            tweet_time = tweeto.find_new_hashtag(hashtag='#coffee_iot', tid=newest_time)
             
             if tweet_time:
                 newest_time = datetime.now()
                 
                 switch.on()
-                time.sleep(10)
+                time.sleep(60*3)
                 switch.off()
                 
-                tweeto.post_update("Woop woop, new iot thing")
+                tweeto.post_update("Coffee is ready!")
                 print("posted new update")
         except TweepError:
             continue
